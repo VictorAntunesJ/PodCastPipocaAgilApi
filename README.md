@@ -24,15 +24,15 @@ Instale a Ferramenta dotnet-ef:
 
 ### Execute os seguintes comandos para adicionar os pacotes necessários do Entity Framework Core:
 ```sh
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
+    dotnet add package Microsoft.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
 ### Execute o seguinte comando para instalar o pacote do SQL Server e ADO.NET:
 ```sh
-dotnet add package Microsoft.Data.SqlClient --version 5.2.0-preview3.23201.1
+    dotnet add package Microsoft.Data.SqlClient --version 5.2.0-preview3.23201.1
 ```
 
 
@@ -42,21 +42,21 @@ dotnet add package Microsoft.Data.SqlClient --version 5.2.0-preview3.23201.1
 
 
 ```sh
-dotnet ef migrations add Start --context DataContext
-dotnet ef database update --context DataContext
-dotnet ef database instead. --context DataContext
+    dotnet ef migrations add Start --context DataContext
+    dotnet ef database update --context DataContext
+    dotnet ef database instead. --context DataContext
 
-dotnet ef migrations remove  --context DataContext
+    dotnet ef migrations remove  --context DataContext
 
-dotnet ef dbcontext info --context DataContext
-dotnet ef dbcontext list --context DataContext
-dotnet ef dbcontext script
+    dotnet ef dbcontext info --context DataContext
+    dotnet ef dbcontext list --context DataContext
+    dotnet ef dbcontext script
 
-select @@version;
-8.0.23
+    select @@version;
+    8.0.23
 
-DROP TABLE "__EFMigraçõesHistórico"
-delete from __EFMigraçõesHistórico;
+    DROP TABLE "__EFMigraçõesHistórico"
+    delete from __EFMigraçõesHistórico;
 ```
 
 ### Documentação da API
