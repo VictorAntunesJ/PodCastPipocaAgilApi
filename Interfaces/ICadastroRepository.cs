@@ -2,16 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.JsonPatch;
 using PodCastPipocaAgilApi.Models;
 
 namespace PodCastPipocaAgilApi.Interfaces
 {
     public interface ICadastroRepository
     {
-        Cadastro Inserir(Cadastro cadastro);
-        ICollection<Cadastro> ListarTodos();
-        Cadastro BuscarPorId(int id);
-        void Alterar(Cadastro cadastro);
-        void Excluir(Cadastro cadastro);
+        ICollection<Cadastro> GetALL();
+        Cadastro GetById(int id);
+        Cadastro Insert(Cadastro cadastro);
+        Cadastro Update (int id, Cadastro cadastro);
+        bool Delete (int id);
+            Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro);
     }
 }

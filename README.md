@@ -28,6 +28,7 @@ Instale a Ferramenta dotnet-ef:
     dotnet add package Microsoft.EntityFrameworkCore.Design
     dotnet add package Microsoft.EntityFrameworkCore.SqlServer
     dotnet add package Microsoft.EntityFrameworkCore.Tools
+    dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 7.0.0
 ```
 
 ### Execute o seguinte comando para instalar o pacote do SQL Server e ADO.NET:
