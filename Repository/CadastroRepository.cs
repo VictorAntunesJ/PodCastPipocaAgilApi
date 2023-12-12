@@ -18,12 +18,54 @@ namespace PodCastPipocaAgilApi.Repository
         {
             _contextCadastro = contextCadastro;
         }
-        public Cadastro Insert( Cadastro cadastro)
+        public Cadastro Insert(Cadastro cadastro)
         {
+            ValidateNome(cadastro.nome);
+            ValidateEmail(cadastro.email);
+            ValidateSenha(cadastro.senha);
+
             _contextCadastro.Add(cadastro);
             _contextCadastro.SaveChanges();
             return cadastro;
         }
+
+        private void ValidateNome(string nome)
+        {
+            if (string.IsNullOrEmpty(nome) || nome.Length < 3 || nome.Length > 50 || !nome.All(char.IsLetter))
+            {
+                throw new ArgumentException("Nome inválido. Use apenas letras, com no mínimo 3 e no máximo 50 caracteres.");
+            }
+        }
+
+        private void ValidateEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email) || email.Length > 255 || !IsValidEmailFormat(email))
+            {
+                throw new ArgumentException("E-mail inválido. Certifique-se de que o endereço esteja no formato correto.");
+            }
+        }
+
+        private void ValidateSenha(string senha)
+        {
+            if (string.IsNullOrEmpty(senha) || senha.Length < 8)
+            {
+                throw new ArgumentException("Senha inválida. Certifique-se de que a senha tenha pelo menos 8 caracteres.");
+            }
+        }
+
+        private bool IsValidEmailFormat(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public ICollection<Cadastro> GetALL()
         {
             return _contextCadastro.Cadastros.ToList();
@@ -60,20 +102,20 @@ namespace PodCastPipocaAgilApi.Repository
 
             return true;
         }
-        
 
-    public Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro)
-    {
-        var cadastroBanco = _contextCadastro.Cadastros.Find(id);
-        if (cadastroBanco == null)
-            throw new Exception("Item não encontrado com o ID fornecido.");
 
-        PatchCadastro.ApplyTo(cadastroBanco);
+        public Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro)
+        {
+            var cadastroBanco = _contextCadastro.Cadastros.Find(id);
+            if (cadastroBanco == null)
+                throw new Exception("Item não encontrado com o ID fornecido.");
 
-        _contextCadastro.Cadastros.Update(cadastroBanco);
-        _contextCadastro.SaveChanges();
+            PatchCadastro.ApplyTo(cadastroBanco);
 
-        return cadastroBanco;
+            _contextCadastro.Cadastros.Update(cadastroBanco);
+            _contextCadastro.SaveChanges();
+
+            return cadastroBanco;
+        }
     }
-}
 }
