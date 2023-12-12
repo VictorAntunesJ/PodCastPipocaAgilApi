@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "PodCasttPipocaWebApi.",
+        Title = "PodCastPipocaWebApi.",
         Version = "v1.",
         Description = "Funcionalidade 'Trilha de Conhecimento' no Podcast Pipoca Ágil. Explore vídeos sobre Metodologias Ágeis, Inovação, Gerenciamento de Projetos, e mais. Acesse trilhas personalizadas, e receba recomendações gratuitamente.",
         TermsOfService = new Uri("https://meusite.com"),
@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
         },
         License = new OpenApiLicense
         {
-            Name = "Podquest Pipoca Agil",
+            Name = "PodCast Pipoca Agil",
             Url = new Uri("https://meusite.com")
         }
     });
@@ -43,8 +43,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-builder.Services.AddTransient<PodCastPipocaAgilApiContext, PodCastPipocaAgilApiContext>();
+builder.Services.AddTransient<PodCastPipocaAgilApiContext>();
 builder.Services.AddTransient<ICadastroRepository, CadastroRepository>();
+builder.Services.AddTransient<ILoginRepository, LoginRepository>();
 
 var app = builder.Build();
 

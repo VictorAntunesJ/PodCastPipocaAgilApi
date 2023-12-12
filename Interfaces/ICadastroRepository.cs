@@ -11,9 +11,9 @@ namespace PodCastPipocaAgilApi.Interfaces
     {
         ICollection<Cadastro> GetALL();
         Cadastro GetById(int id);
-        Cadastro Insert(Cadastro cadastro);
+        Cadastro Insert( Cadastro cadastro);
         Cadastro Update (int id, Cadastro cadastro);
         bool Delete (int id);
-            Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro);
+        Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro);
     }
 }

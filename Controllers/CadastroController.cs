@@ -18,7 +18,6 @@ namespace PodCastPipocaAgilApi.Controllers
         {
             _cadastroRepository = cadastroRepository;
         }
-
         /// <summary>
         /// Cadastra um novo usuário na aplicação.
         /// </summary>
@@ -29,8 +28,9 @@ namespace PodCastPipocaAgilApi.Controllers
         {
             try
             {
-                var cadastroBanco = _cadastroRepository.Insert(cadastro);
-                return Ok(cadastroBanco);
+                cadastro.senha = BCrypt.Net.BCrypt.HashPassword(cadastro.senha);
+                _cadastroRepository.Insert(cadastro);
+                return Ok(cadastro);
             }
             catch (System.Exception ex)
             {
@@ -62,7 +62,6 @@ namespace PodCastPipocaAgilApi.Controllers
                 });
             }
         }
-
         /// <summary>
         /// Obtém um usuário pelo ID.
         /// </summary>
@@ -78,7 +77,6 @@ namespace PodCastPipocaAgilApi.Controllers
                 {
                     return NotFound(new { Message = " Cliente não encrontrado." });
                 }
-
                 return Ok(cadastroBanco);
             }
             catch (System.Exception ex)
@@ -107,10 +105,9 @@ namespace PodCastPipocaAgilApi.Controllers
                 {
                     return BadRequest();
                 }
-
+                cadastro.senha = BCrypt.Net.BCrypt.HashPassword(cadastro.senha);
                 var updateCadastro = _cadastroRepository.Update(id, cadastro);
                 return Ok(updateCadastro);
-
             }
             catch (System.Exception ex)
             {
@@ -136,11 +133,9 @@ namespace PodCastPipocaAgilApi.Controllers
             {
                 return BadRequest();
             }
-
             var updateCadastro = _cadastroRepository.UpdatePartial(id, pathCadastro);
             return Ok(updateCadastro);
         }
-
         /// <summary>
         /// Exclui um usuário com base no ID fornecido.
         /// </summary>
@@ -154,7 +149,6 @@ namespace PodCastPipocaAgilApi.Controllers
             try
             {
                 bool exclusaoBemSucedida = _cadastroRepository.Delete(id);
-
                 if (exclusaoBemSucedida)
                 {
                     return Ok("Usuário deletado com sucesso.");

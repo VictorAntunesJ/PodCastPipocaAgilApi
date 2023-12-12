@@ -38,9 +38,7 @@ namespace PodCastPipocaAgilApi.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("senha")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

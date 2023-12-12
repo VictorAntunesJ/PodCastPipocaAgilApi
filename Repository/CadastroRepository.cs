@@ -18,7 +18,7 @@ namespace PodCastPipocaAgilApi.Repository
         {
             _contextCadastro = contextCadastro;
         }
-        public Cadastro Insert(Cadastro cadastro)
+        public Cadastro Insert( Cadastro cadastro)
         {
             _contextCadastro.Add(cadastro);
             _contextCadastro.SaveChanges();
@@ -39,7 +39,7 @@ namespace PodCastPipocaAgilApi.Repository
             if (cadastroBanco == null)
                 throw new Exception("Item não encontrado com o ID fornecido.");
 
-            cadastroBanco.id = cadastro.id;
+            cadastroBanco.nome = cadastro.nome;
             cadastroBanco.email = cadastro.email;
             cadastroBanco.senha = cadastro.senha;
 
