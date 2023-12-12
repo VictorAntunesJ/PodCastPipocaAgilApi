@@ -77,19 +77,39 @@ namespace PodCastPipocaAgilApi.Repository
         }
         public Cadastro Update(int id, Cadastro cadastro)
         {
+            
             var cadastroBanco = _contextCadastro.Cadastros.Find(id);
             if (cadastroBanco == null)
+            {
                 throw new Exception("Item não encontrado com o ID fornecido.");
+            }
 
+            
+            if (!string.IsNullOrEmpty(cadastro.email) && !IsValidEmailFormat(cadastro.email))
+            {
+                throw new Exception("Formato de e-mail inválido.");
+            }
+
+            // 3. Verificar a unicidade do novo e-mail (se fornecido)
+            if (!string.IsNullOrEmpty(cadastro.email) && _contextCadastro.Cadastros.Any(c => c.email == cadastro.email && c.id != id))
+            {
+                throw new Exception("E-mail já está sendo utilizado por outro usuário.");
+            }
+
+            // 4. Atualizar os campos
             cadastroBanco.nome = cadastro.nome;
             cadastroBanco.email = cadastro.email;
-            cadastroBanco.senha = cadastro.senha;
+            cadastroBanco.senha = cadastro.senha; // Lembre-se de verificar a complexidade se a senha estiver sendo alterada
 
+            // 5. Atualizar no contexto e salvar as alterações
             _contextCadastro.Cadastros.Update(cadastroBanco);
             _contextCadastro.SaveChanges();
 
+            // 6. Retornar o cadastro atualizado
             return cadastroBanco;
         }
+
+
         public bool Delete(int id)
         {
             var cadastroBanco = _contextCadastro.Cadastros.Find(id);

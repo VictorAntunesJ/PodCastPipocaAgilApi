@@ -75,7 +75,7 @@ namespace PodCastPipocaAgilApi.Controllers
                 var cadastroBanco = _cadastroRepository.GetById(id);
                 if (cadastroBanco == null)
                 {
-                    return NotFound(new { Message = " Cliente não encrontrado." });
+                    return NotFound(new { Message = " Cadastro não encrontrado." });
                 }
                 return Ok(cadastroBanco);
             }
