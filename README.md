@@ -72,3 +72,36 @@ A configuração do Swagger foi realizada da seguinte forma:
 - **Termos de Serviço:** [Termos de Serviço](https://meusite.com)
 - **Contato:** Victor Sérgio, [meusite.com](https://meusite.com)
 - **Licença:** Podquest Pipoca Agil, [Detalhes da Licença](https://meusite.com)
+
+
+### Configuração de Envio de E-mail com SMTP do Gmail
+
+Este projeto utiliza o serviço SMTP do Gmail para enviar e-mails. Siga os passos abaixo para configurar o envio de e-mails:
+
+1. **Assista ao Tutorial:** [Configuração de Envio de E-mail com SMTP do Gmail](https://www.youtube.com/watch?v=TrdWr3BmqT8)
+
+2. **Teste o Envio de E-mails:**
+   - Execute o aplicativo e verifique se o envio de e-mails está funcionando corretamente.
+   - Utilize ferramentas online como [SMTP Tester](https://www.gmass.co/smtp-test) para validar as configurações do SMTP.
+
+3. **Configuração no Código:**
+   - Abra o arquivo de configuração do aplicativo (Pasta `EmailService`).
+   - Adicione as informações de configuração para o envio de e-mails, incluindo o servidor SMTP, porta, nome de usuário e senha.
+     
+     ```json
+     {
+       "SmtpSettings": {
+         "Server": "smtp.gmail.com",
+         "Port": 587,
+         "Username": "seu-email@gmail.com",
+         "Password": "sua-senha-de-app-gerada"
+       }
+     }
+     ```
+   
+   Certifique-se de substituir `"seu-email@gmail.com"` e `"sua-senha-de-app-gerada"` pelas suas informações.
+
+4. **Teste de SMTP:**
+   - Após configurar, faça um teste de SMTP utilizando [SMTP Tester](https://www.gmass.co/smtp-test) para garantir que as configurações estejam corretas.
+
+Certifique-se de seguir esses passos cuidadosamente para garantir uma configuração bem-sucedida do envio de e-mails. Se você encontrar problemas, revise as etapas acima e assegure-se de que cada passo tenha sido seguido corretamente.
