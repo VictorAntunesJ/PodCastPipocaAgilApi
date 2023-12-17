@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.EntityFrameworkCore;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Models;
@@ -18,22 +13,43 @@ namespace PodCastPipocaAgilApi.Repository
         {
             _contextCadastro = contextCadastro;
         }
+
         public Cadastro Insert(Cadastro cadastro)
         {
             ValidateNome(cadastro.nome);
             ValidateEmail(cadastro.email);
             ValidateSenha(cadastro.senha);
 
+            if (EmailJaCadastrado(cadastro.email))
+            {
+                throw new ArgumentException(
+                    "E-mail já cadastrado. Escolha outro endereço de e-mail."
+                );
+            }
             _contextCadastro.Add(cadastro);
             _contextCadastro.SaveChanges();
             return cadastro;
         }
 
+        private bool EmailJaCadastrado(string email)
+        {
+            // Verifica se o e-mail já está cadastrado no contexto de cadastro
+            var existeCadastro = _contextCadastro.Cadastros.Any(x => x.email == email);
+            return existeCadastro;
+        }
+
         private void ValidateNome(string nome)
         {
-            if (string.IsNullOrEmpty(nome) || nome.Length < 3 || nome.Length > 50 || !nome.All(char.IsLetter))
+            if (
+                string.IsNullOrEmpty(nome)
+                || nome.Length < 3
+                || nome.Length > 50
+                || !nome.All(char.IsLetter)
+            )
             {
-                throw new ArgumentException("Nome inválido. Use apenas letras, com no mínimo 3 e no máximo 50 caracteres.");
+                throw new ArgumentException(
+                    "Nome inválido. Use apenas letras, com no mínimo 3 e no máximo 50 caracteres."
+                );
             }
         }
 
@@ -41,15 +57,23 @@ namespace PodCastPipocaAgilApi.Repository
         {
             if (string.IsNullOrEmpty(email) || email.Length > 255 || !IsValidEmailFormat(email))
             {
-                throw new ArgumentException("E-mail inválido. Certifique-se de que o endereço esteja no formato correto.");
+                throw new ArgumentException(
+                    "E-mail inválido. Certifique-se de que o endereço esteja no formato correto."
+                );
             }
         }
 
         private void ValidateSenha(string senha)
         {
-            if (string.IsNullOrEmpty(senha) || senha.Length < 8)
+            if (
+                string.IsNullOrEmpty(senha) 
+                || senha.Length < 8 
+                || !senha.Any(char.IsUpper)
+            )
             {
-                throw new ArgumentException("Senha inválida. Certifique-se de que a senha tenha pelo menos 8 caracteres.");
+                throw new ArgumentException(
+                    "Senha inválida. Certifique-se de que a senha tenha pelo menos 8 caracterese e pelo menos uma letra maiúscula."
+                );
             }
         }
 
@@ -75,23 +99,24 @@ namespace PodCastPipocaAgilApi.Repository
         {
             return _contextCadastro.Cadastros.Find(id);
         }
+
         public Cadastro Update(int id, Cadastro cadastro)
         {
-            
             var cadastroBanco = _contextCadastro.Cadastros.Find(id);
             if (cadastroBanco == null)
             {
                 throw new Exception("Item não encontrado com o ID fornecido.");
             }
-
-            
             if (!string.IsNullOrEmpty(cadastro.email) && !IsValidEmailFormat(cadastro.email))
             {
                 throw new Exception("Formato de e-mail inválido.");
             }
 
             // 3. Verificar a unicidade do novo e-mail (se fornecido)
-            if (!string.IsNullOrEmpty(cadastro.email) && _contextCadastro.Cadastros.Any(c => c.email == cadastro.email && c.id != id))
+            if (
+                !string.IsNullOrEmpty(cadastro.email)
+                && _contextCadastro.Cadastros.Any(c => c.email == cadastro.email && c.id != id)
+            )
             {
                 throw new Exception("E-mail já está sendo utilizado por outro usuário.");
             }
@@ -109,7 +134,6 @@ namespace PodCastPipocaAgilApi.Repository
             return cadastroBanco;
         }
 
-
         public bool Delete(int id)
         {
             var cadastroBanco = _contextCadastro.Cadastros.Find(id);
@@ -122,7 +146,6 @@ namespace PodCastPipocaAgilApi.Repository
 
             return true;
         }
-
 
         public Cadastro UpdatePartial(int id, JsonPatchDocument<Cadastro> PatchCadastro)
         {

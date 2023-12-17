@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Models;
+using PodCastPipocaAgilApi.SendEmail;
 
 namespace PodCastPipocaAgilApi.Controllers
 {
@@ -14,33 +11,47 @@ namespace PodCastPipocaAgilApi.Controllers
     public class CadastroController : ControllerBase
     {
         private readonly ICadastroRepository _cadastroRepository;
-        public CadastroController(ICadastroRepository cadastroRepository)
+        private readonly EmailService _email;
+
+        public CadastroController(ICadastroRepository cadastroRepository, EmailService email)
         {
             _cadastroRepository = cadastroRepository;
+            _email = email;
         }
+
         /// <summary>
         /// Cadastra um novo usuário na aplicação.
         /// </summary>
         /// <param name="cadastro">Dados do novo usuário.</param>
         /// <returns>Dados do usuário recém-cadastrado.</returns>
         [HttpPost]
-        public IActionResult Create(Cadastro cadastro)
+        public IActionResult Create([FromBody] Cadastro cadastro)
         {
             try
             {
                 cadastro.senha = BCrypt.Net.BCrypt.HashPassword(cadastro.senha);
                 _cadastroRepository.Insert(cadastro);
-                return Ok(cadastro);
-            }
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, new
+
+                if (EmailService.ValidaEnderecoEmail(cadastro.email))
                 {
-                    msg = "Falha na conexão",
-                    erro = ex.Message,
-                });
+                    string assunto = "Bem-vindo!";
+                    string corpo = $"Olá {cadastro.nome}, obrigado por se cadastrar!";
+
+                    EmailService.EnviarEmail(cadastro.email, assunto, corpo);
+
+                    return Ok(cadastro);
+                }
+                else
+                {
+                    return BadRequest("Endereço de e-mail inválido.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro durante o cadastro: {ex.Message}");
             }
         }
+
         /// <summary>
         /// Lista todos os usuários cadastrados na aplicação.
         /// </summary>
@@ -55,13 +66,10 @@ namespace PodCastPipocaAgilApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    msg = "Falha na conexão",
-                    erro = ex.Message,
-                });
+                return StatusCode(500, new { msg = "Falha na conexão", erro = ex.Message, });
             }
         }
+
         /// <summary>
         /// Obtém um usuário pelo ID.
         /// </summary>
@@ -81,13 +89,10 @@ namespace PodCastPipocaAgilApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    msg = "Falha na conexão",
-                    erro = ex.Message,
-                });
+                return StatusCode(500, new { msg = "Falha na conexão", erro = ex.Message, });
             }
         }
+
         /// <summary>
         /// Atualiza um registro de cadastro com base no ID fornecido.
         /// </summary>
@@ -111,13 +116,10 @@ namespace PodCastPipocaAgilApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    msg = "Falha na conexão",
-                    erro = ex.Message,
-                });
+                return StatusCode(500, new { msg = "Falha na conexão", erro = ex.Message, });
             }
         }
+
         /// <summary>
         /// Atualiza parcialmente um registro de cadastro com base no ID fornecido.
         /// </summary>
@@ -136,6 +138,7 @@ namespace PodCastPipocaAgilApi.Controllers
             var updateCadastro = _cadastroRepository.UpdatePartial(id, pathCadastro);
             return Ok(updateCadastro);
         }
+
         /// <summary>
         /// Exclui um usuário com base no ID fornecido.
         /// </summary>
@@ -160,11 +163,7 @@ namespace PodCastPipocaAgilApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return StatusCode(500, new
-                {
-                    msg = "Falha na conexão",
-                    erro = ex.Message,
-                });
+                return StatusCode(500, new { msg = "Falha na conexão", erro = ex.Message, });
             }
         }
     }

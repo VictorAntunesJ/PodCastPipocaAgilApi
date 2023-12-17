@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Models;
-using BCrypt.Net;
 
 namespace PodCastPipocaAgilApi.Repository
 {
@@ -17,17 +13,36 @@ namespace PodCastPipocaAgilApi.Repository
         {
             _iLoginContext = iLoginContext;
         }
+
         public Cadastro Logar(string email, string senha)
         {
+            if (!IsValidEmailFormat(email))
+            {
+                throw new ArgumentException(
+                    "Formato de e-mail inválido. Certifique-se de que o endereço esteja no formato correto."
+                );
+            }
+
             var cadastro = _iLoginContext.Cadastros.FirstOrDefault(x => x.email == email);
 
-            if (cadastro != null)
+            if (cadastro != null && BCrypt.Net.BCrypt.Verify(senha, cadastro.senha))
             {
-                bool confere = BCrypt.Net.BCrypt.Verify(senha, cadastro.senha);
-                if (confere)
-                    return cadastro;
+                // Login bem-sucedido
+                return cadastro;
             }
+
+            // Login falhou, retorna a mensagem de erro
             return null;
+        }
+
+        private bool IsValidEmailFormat(string email)
+        {
+            // Expressão regular para verificar o formato do e-mail
+            string emailPattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$";
+            Regex regex = new Regex(emailPattern);
+
+            // Verifica se o e-mail corresponde ao padrão
+            return regex.IsMatch(email);
         }
     }
 }

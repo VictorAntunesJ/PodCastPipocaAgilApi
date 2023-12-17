@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Repository;
+using PodCastPipocaAgilApi.SendEmail;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+builder.Services.AddTransient<EmailService>();
 builder.Services.AddTransient<PodCastPipocaAgilApiContext>();
 builder.Services.AddTransient<ICadastroRepository, CadastroRepository>();
 builder.Services.AddTransient<ILoginRepository, LoginRepository>();
