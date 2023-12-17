@@ -74,6 +74,9 @@ A configuração do Swagger foi realizada da seguinte forma:
 - **Licença:** Podquest Pipoca Agil, [Detalhes da Licença](https://meusite.com)
 
 
+
+
+
 ### Configuração de Envio de E-mail com SMTP do Gmail
 
 Este projeto utiliza o serviço SMTP do Gmail para enviar e-mails. Siga os passos abaixo para configurar o envio de e-mails:
