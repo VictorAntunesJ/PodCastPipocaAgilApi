@@ -36,6 +36,11 @@ Instale a Ferramenta dotnet-ef:
     dotnet add package Microsoft.Data.SqlClient --version 5.2.0-preview3.23201.1
 ```
 
+### Execute o seguinte comando para instalar o pacote para autenticação JWT no ASP.NET Core
+```sh
+    dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.0
+```
+
 
 ### Gerenciamento de Migrações com Entity Framework Core
 
@@ -108,3 +113,42 @@ Este projeto utiliza o serviço SMTP do Gmail para enviar e-mails. Siga os passo
    - Após configurar, faça um teste de SMTP utilizando [SMTP Tester](https://www.gmass.co/smtp-test) para garantir que as configurações estejam corretas.
 
 Certifique-se de seguir esses passos cuidadosamente para garantir uma configuração bem-sucedida do envio de e-mails. Se você encontrar problemas, revise as etapas acima e assegure-se de que cada passo tenha sido seguido corretamente.
+
+
+### Instruções para Execução token gerado JWT
+1. Copie o Token JWT
+Após realizar o login, copie o token JWT gerado.
+
+2. Acesse o [jwt.io](https://jwt.io/) em seu navegador.
+
+3. Cole o Token
+No campo "Encoded" do site, cole o token que foi gerado durante o login.
+
+4. Visualize as Informações do Token
+O site irá automaticamente decodificar o token e exibir as informações nas seções "Header", "Payload" e "Signature". Aqui, você poderá verificar as reivindicações (claims) do token, tais como o email, identificador do token (Jti), papel (role), cargo, entre outras, dependendo das informações incluídas na criação do token. Isso possibilita a verificação de se o token gerado está correto e contém as informações esperadas.
+
+Bloqueio de Acesso a Endpoints com Autorização
+Este projeto implementa a autorização para restringir o acesso a determinados endpoints, usando como exemplo o endpoint DELETE na classe
+
+### Testando a Aplicação com Postman
+## Obtendo o Token de Autenticação
+1. Use o Swagger para gerar um token de autenticação.
+2. Faça uma requisição POST para a URL de login do Swagger com as credenciais necessárias.
+## Executando uma Requisição DELETE
+1. No Postman, crie uma requisição DELETE para o endpoint desejado.
+2. onfigure a URL da requisição usando o Swagger.
+3. Adicione a autorização passando o token gerado como Bearer Token.
+4. Execute a requisição.
+
+## Exemplo de URL DELETE no Postman:
+```sh 
+  DELETE http://localhost:5029/Cadastro/2007
+```
+## Exemplo de cabeçalho de autorização no Postman:
+```sh
+  Authorization: Bearer [seu-token-aqui]
+
+```
+O retorno esperado é o código de status 204 (No Content), indicando que a operação foi realizada com sucesso.
+
+

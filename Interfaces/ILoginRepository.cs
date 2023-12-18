@@ -4,6 +4,6 @@ namespace PodCastPipocaAgilApi.Interfaces
 {
     public interface ILoginRepository
     {
-        Cadastro Logar(string email, string senha);
+        string Logar(string email, string senha);
     }
 }

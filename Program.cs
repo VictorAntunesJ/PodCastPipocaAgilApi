@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
@@ -42,6 +43,29 @@ builder.Services.AddSwaggerGen(c =>
     var xmlArquivo = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlArquivo));
 });
+
+    //Config JWT
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = "JwtBearer";
+        options.DefaultChallengeScheme = "JwtBearer";
+
+    })
+    .AddJwtBearer("JwtBearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("PodCastPipocaAgilDb-chave-autenticacao")),
+            ClockSkew = TimeSpan.FromMinutes(30),
+            ValidIssuer = "PodCastPipocaAgilDbAPI.Web",
+            ValidAudience = "PodCastPipocaAgilDbAPI.Web"
+
+        };
+    } );
 
 
 builder.Services.AddTransient<EmailService>();
