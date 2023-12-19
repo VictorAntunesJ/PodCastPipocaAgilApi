@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PodCastPipocaAgilApi.Interfaces;
@@ -101,6 +102,7 @@ namespace PodCastPipocaAgilApi.Controllers
         /// <returns>
         /// Um objeto indicando o resultado da operação. Retorna:
         /// </returns>
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Cadastro cadastro)
         {
@@ -146,6 +148,7 @@ namespace PodCastPipocaAgilApi.Controllers
         /// <returns>
         /// Um objeto indicando o resultado da operação. Retorna:
         /// </returns>
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
