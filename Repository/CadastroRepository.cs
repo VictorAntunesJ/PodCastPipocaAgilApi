@@ -65,11 +65,7 @@ namespace PodCastPipocaAgilApi.Repository
 
         private void ValidateSenha(string senha)
         {
-            if (
-                string.IsNullOrEmpty(senha) 
-                || senha.Length < 8 
-                || !senha.Any(char.IsUpper)
-            )
+            if (string.IsNullOrEmpty(senha) || senha.Length < 8 || !senha.Any(char.IsUpper))
             {
                 throw new ArgumentException(
                     "Senha inválida. Certifique-se de que a senha tenha pelo menos 8 caracterese e pelo menos uma letra maiúscula."
@@ -92,7 +88,13 @@ namespace PodCastPipocaAgilApi.Repository
 
         public ICollection<Cadastro> GetALL()
         {
-            return _contextCadastro.Cadastros.ToList();
+            var cadastro = _contextCadastro.Cadastros.ToList();
+
+            if (cadastro.Count == 0)
+            {
+                throw new InvalidOperationException(" A aplicação está vazia. Não há cadastros. ");
+            }
+            return cadastro;
         }
 
         public Cadastro GetById(int id)

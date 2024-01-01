@@ -14,5 +14,7 @@ namespace PodCastPipocaAgilApi.Context
 
         }
         public DbSet<Cadastro> Cadastros { get; set; }
+        public DbSet<Livro> Livros { get; set; }
+
     }
 }

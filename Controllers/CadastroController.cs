@@ -63,6 +63,10 @@ namespace PodCastPipocaAgilApi.Controllers
             try
             {
                 var cadastroBanco = _cadastroRepository.GetALL();
+                if (cadastroBanco == null)
+                {
+                    return NotFound(new { Message = " A aplicação está vazia. Não há cadastros." });
+                }
                 return Ok(cadastroBanco);
             }
             catch (System.Exception ex)
