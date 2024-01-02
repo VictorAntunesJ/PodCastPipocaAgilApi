@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPipicaAgil", "TestPipicaAgil\TestPipicaAgil.csproj", "{1A3689BF-B04C-4BE1-855B-17FE302692EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodCastPipocaAgilApi", "PodCastPipocaAgilApi\PodCastPipocaAgilApi.csproj", "{2427E394-50FC-4CC2-9FD8-A49AA28EB35A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A3689BF-B04C-4BE1-855B-17FE302692EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3689BF-B04C-4BE1-855B-17FE302692EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3689BF-B04C-4BE1-855B-17FE302692EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3689BF-B04C-4BE1-855B-17FE302692EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2427E394-50FC-4CC2-9FD8-A49AA28EB35A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2427E394-50FC-4CC2-9FD8-A49AA28EB35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2427E394-50FC-4CC2-9FD8-A49AA28EB35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2427E394-50FC-4CC2-9FD8-A49AA28EB35A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PodCastPipocaAgilApi</name>
+    </assembly>
+    <members>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.Create(PodCastPipocaAgilApi.Models.Cadastro)">
+            <summary>
+            Cadastra um novo usuário na aplicação.
+            </summary>
+            <param name="cadastro">Dados do novo usuário.</param>
+            <returns>Dados do usuário recém-cadastrado.</returns>
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.ObterTodos">
+            <summary>
+            Lista todos os usuários cadastrados na aplicação.
+            </summary>
+            <returns>Lista de todos os usuários cadastrados.</returns>
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.ObterPorId(System.Int32)">
+            <summary>
+            Obtém um usuário pelo ID.
+            </summary>
+            <param name="id">ID do usuário.</param>
+            <returns>Dados do usuário correspondente ao ID.</returns>
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.Alterar(System.Int32,PodCastPipocaAgilApi.Models.Cadastro)">
+            <summary>
+            Atualiza um registro de cadastro com base no ID fornecido.
+            </summary>
+            <param name="id">O ID do registro a ser atualizado.</param>
+            <param name="cadastro">Os dados atualizados para o registro de cadastro.</param>
+            <returns>
+            Um objeto indicando o resultado da operação. Retorna:
+            </returns>
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.Patch(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{PodCastPipocaAgilApi.Models.Cadastro})">
+            <summary>
+            Atualiza parcialmente um registro de cadastro com base no ID fornecido.
+            </summary>
+            <param name="id">O ID do registro a ser atualizado.</param>
+            <param name="pathCadastro">Os dados parciais para atualização do registro de cadastro.</param>
+            <returns>
+            Um objeto indicando o resultado da operação. Retorna:
+            </returns>
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Controllers.CadastroController.Delete(System.Int32)">
+            <summary>
+            Exclui um usuário com base no ID fornecido.
+            </summary>
+            <param name="id">O ID do usuário a ser excluído.</param>
+            <returns>
+            Um objeto indicando o resultado da operação. Retorna:
+            </returns>
+        </member>
+        <member name="T:PodCastPipocaAgilApi.Migrations.PodCastPipocaAgilDb">
+            <inheritdoc />
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Migrations.PodCastPipocaAgilDb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Migrations.PodCastPipocaAgilDb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:PodCastPipocaAgilApi.Migrations.PodCastPipocaAgilDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
