@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
+using PodCastPipocaAgilApi.Models;
 using PodCastPipocaAgilApi.Repository;
 using PodCastPipocaAgilApi.SendEmail;
 
@@ -79,7 +80,9 @@ builder.Services.AddTransient<EmailService>();
 builder.Services.AddTransient<PodCastPipocaAgilApiContext>();
 builder.Services.AddTransient<ICadastroRepository, CadastroRepository>();
 builder.Services.AddTransient<ILoginRepository, LoginRepository>();
-builder.Services.AddTransient<ILivrosRepository, LivrosRepository>();
+builder.Services.AddTransient<ILiveRepository, LiveRepository>();
+
+
 
 var app = builder.Build();
 
