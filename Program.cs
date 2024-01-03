@@ -81,6 +81,8 @@ builder.Services.AddTransient<PodCastPipocaAgilApiContext>();
 builder.Services.AddTransient<ICadastroRepository, CadastroRepository>();
 builder.Services.AddTransient<ILoginRepository, LoginRepository>();
 builder.Services.AddTransient<ILiveRepository, LiveRepository>();
+builder.Services.AddScoped<ILivrosRepository, LivrosRepository>();
+
 
 
 

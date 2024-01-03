@@ -6,7 +6,7 @@ using PodCastPipocaAgilApi.Models;
 
 namespace PodCastPipocaAgilApi.Interfaces
 {
-    public interface ILiveRepository
+    public interface ILiveRepository : IGenericRepository<Live>
     {
         ICollection<Live> GetALL();
         Live GetById(int id);

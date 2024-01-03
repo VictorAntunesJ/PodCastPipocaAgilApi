@@ -3,7 +3,7 @@ using PodCastPipocaAgilApi.Models;
 
 namespace PodCastPipocaAgilApi.Interfaces
 {
-    public interface ILivrosRepository
+    public interface ILivrosRepository : IGenericRepository<Livro>
     {
         ICollection<Livro> GetALL();
         Livro GetById(int id);

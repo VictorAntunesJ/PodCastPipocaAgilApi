@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Migrations;
@@ -16,6 +18,18 @@ namespace PodCastPipocaAgilApi.Repository
         public LiveRepository(PodCastPipocaAgilApiContext contextLive)
         {
             _contextLive = contextLive;
+        }
+
+        public ICollection<Live> Search(string termoPesquisa)
+        {
+            return _contextLive.Lives
+                .Where(
+                    l =>
+                        EF.Functions.Like(l.Titulo, $"%{termoPesquisa}%")
+                        || EF.Functions.Like(l.Link, $"%{termoPesquisa}%")
+                // Adicione mais condições conforme necessário para outros campos da entidade Live
+                )
+                .ToList();
         }
 
         public Live Insert(Live live)

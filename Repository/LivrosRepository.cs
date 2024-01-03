@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PodCastPipocaAgilApi.Context;
 using PodCastPipocaAgilApi.Interfaces;
 using PodCastPipocaAgilApi.Models;
@@ -12,6 +13,21 @@ namespace PodCastPipocaAgilApi.Repository
         public LivrosRepository(PodCastPipocaAgilApiContext contextLivro)
         {
             _contextLivro = contextLivro;
+        }
+
+        public ICollection<Livro> Search(string termoPesquisa)
+        {
+            // Implemente a pesquisa para Livros
+            // Exemplo: pesquisar por título ou autor
+            return _contextLivro.Livros
+               .Where(
+            l =>
+                EF.Functions.Like(l.Titulo, $"%{termoPesquisa}%")
+                || EF.Functions.Like(l.Autor, $"%{termoPesquisa}%")
+                || EF.Functions.Like(l.UrlCapa, $"%{termoPesquisa}%")
+                || EF.Functions.Like(l.LinkLivro, $"%{termoPesquisa}%")
+        )
+        .ToList();
         }
 
         public Livro Insert(Livro livro)
